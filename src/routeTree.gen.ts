@@ -13,8 +13,10 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CartRouteImport } from './routes/cart'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
@@ -40,6 +42,11 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckoutRoute = CheckoutRouteImport.update({
   id: '/checkout',
   path: '/checkout',
@@ -48,6 +55,11 @@ const CheckoutRoute = CheckoutRouteImport.update({
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,8 +85,10 @@ const OrdersOrderIdRoute = OrdersOrderIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -85,8 +99,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -98,8 +114,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -112,8 +130,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/account'
     | '/cart'
     | '/checkout'
+    | '/contact'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -124,8 +144,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/account'
     | '/cart'
     | '/checkout'
+    | '/contact'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -136,8 +158,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/account'
     | '/cart'
     | '/checkout'
+    | '/contact'
     | '/forgot-password'
     | '/login'
     | '/register'
@@ -149,8 +173,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountRoute: typeof AccountRoute
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRoute
+  ContactRoute: typeof ContactRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
@@ -190,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkout': {
       id: '/checkout'
       path: '/checkout'
@@ -202,6 +235,13 @@ declare module '@tanstack/react-router' {
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -237,8 +277,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountRoute: AccountRoute,
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRoute,
+  ContactRoute: ContactRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
