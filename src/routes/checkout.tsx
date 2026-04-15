@@ -110,21 +110,22 @@ function CheckoutPage() {
         quantity: item.quantity,
       }));
 
-      const { data: rawData, error } = await supabase.rpc("create_order_and_payment_session", {
-        p_items: payload as unknown as undefined,
-      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: rawData, error } = await supabase.rpc("create_order_and_payment_session" as any, {
+        p_items: payload,
+      } as any);
 
       if (error) throw error;
       if (!rawData) throw new Error("Không nhận được dữ liệu thanh toán từ server");
 
-      const data = rawData as unknown as Record<string, string | null>;
+      const data = rawData as Record<string, string | null>;
 
       const session: CheckoutSession = {
-        orderId: data.order_id,
-        orderCode: data.order_code,
+        orderId: data.order_id ?? "",
+        orderCode: data.order_code ?? "",
         amountVnd: Number(data.amount_vnd),
-        transferContent: data.transfer_content,
-        qrImageUrl: data.qr_image_url,
+        transferContent: data.transfer_content ?? "",
+        qrImageUrl: data.qr_image_url ?? "",
         expiresAt: data.expires_at ?? null,
         bankName: data.bank_name ?? "",
         bankAccountName: data.bank_account_name ?? "",
