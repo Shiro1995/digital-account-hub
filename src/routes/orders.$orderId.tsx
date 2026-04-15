@@ -65,9 +65,10 @@ function OrderDetailPage() {
     queryKey: ["delivered-credentials", orderId],
     enabled: Boolean(order && order.status === "delivered"),
     queryFn: async () => {
-      const { data, error } = await supabase.rpc("get_delivered_credentials_for_user", {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data, error } = await supabase.rpc("get_delivered_credentials_for_user" as any, {
         p_order_id: orderId,
-      });
+      } as any);
       if (error) throw error;
       return (data ?? []) as DeliveredCredential[];
     },
