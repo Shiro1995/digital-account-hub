@@ -110,12 +110,14 @@ function CheckoutPage() {
         quantity: item.quantity,
       }));
 
-      const { data, error } = await supabase.rpc("create_order_and_payment_session", {
-        p_items: payload,
+      const { data: rawData, error } = await supabase.rpc("create_order_and_payment_session", {
+        p_items: payload as unknown as undefined,
       });
 
       if (error) throw error;
-      if (!data) throw new Error("Không nhận được dữ liệu thanh toán từ server");
+      if (!rawData) throw new Error("Không nhận được dữ liệu thanh toán từ server");
+
+      const data = rawData as unknown as Record<string, string | null>;
 
       const session: CheckoutSession = {
         orderId: data.order_id,
