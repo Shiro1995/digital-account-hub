@@ -9,8 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -29,6 +31,11 @@ import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -37,6 +44,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -134,8 +146,10 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/products': typeof AdminProductsRoute
@@ -154,8 +168,10 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/products': typeof AdminProductsRoute
@@ -176,8 +192,10 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/terms': typeof TermsRoute
   '/admin/orders': typeof AdminOrdersRoute
   '/admin/payments': typeof AdminPaymentsRoute
   '/admin/products': typeof AdminProductsRoute
@@ -199,8 +217,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/forgot-password'
     | '/login'
+    | '/refund-policy'
     | '/register'
     | '/reset-password'
+    | '/terms'
     | '/admin/orders'
     | '/admin/payments'
     | '/admin/products'
@@ -219,8 +239,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/forgot-password'
     | '/login'
+    | '/refund-policy'
     | '/register'
     | '/reset-password'
+    | '/terms'
     | '/admin/orders'
     | '/admin/payments'
     | '/admin/products'
@@ -240,8 +262,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/forgot-password'
     | '/login'
+    | '/refund-policy'
     | '/register'
     | '/reset-password'
+    | '/terms'
     | '/admin/orders'
     | '/admin/payments'
     | '/admin/products'
@@ -262,8 +286,10 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  TermsRoute: typeof TermsRoute
   OrdersOrderIdRoute: typeof OrdersOrderIdRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
@@ -271,6 +297,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -283,6 +316,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -436,8 +476,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  TermsRoute: TermsRoute,
   OrdersOrderIdRoute: OrdersOrderIdRoute,
   ProductsSlugRoute: ProductsSlugRoute,
   ProductsIndexRoute: ProductsIndexRoute,

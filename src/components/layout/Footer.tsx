@@ -21,8 +21,8 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-foreground">Hỗ trợ</h4>
             <ul className="mt-3 space-y-2">
               <li><Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground">Liên hệ</Link></li>
-              <li><a href="/terms" className="text-sm text-muted-foreground hover:text-foreground">Điều khoản</a></li>
-              <li><a href="/refund-policy" className="text-sm text-muted-foreground hover:text-foreground">Chính sách hoàn tiền</a></li>
+              <li><Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground">Điều khoản</Link></li>
+              <li><Link to="/refund-policy" className="text-sm text-muted-foreground hover:text-foreground">Chính sách hoàn tiền</Link></li>
             </ul>
           </div>
           <div>
