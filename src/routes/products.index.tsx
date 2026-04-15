@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Search, Star } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/products")({
+export const Route = createFileRoute("/products/")({
   head: () => ({
     meta: [
       { title: "Sản phẩm — DigitalStore" },
