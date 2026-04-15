@@ -570,6 +570,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      allocate_inventory_for_order: {
+        Args: { p_order_id: string }
+        Returns: Json
+      }
+      create_order_and_payment_session: {
+        Args: { p_items: Json }
+        Returns: Json
+      }
+      generate_order_code: { Args: never; Returns: string }
+      get_delivered_credentials_for_user: {
+        Args: { p_order_id: string }
+        Returns: {
+          credential_email: string
+          credential_password: string
+          credential_recovery_info: string
+          credential_username: string
+          delivered_at: string
+          delivered_item_id: string
+          inventory_item_id: string
+          order_item_id: string
+        }[]
+      }
       get_product_stock: { Args: { p_product_id: string }; Returns: number }
       has_role: {
         Args: {
