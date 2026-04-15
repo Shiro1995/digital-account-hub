@@ -15,6 +15,13 @@ export function Header() {
     { to: "/contact" as const, label: "Liên hệ" },
   ];
 
+  const userLinks = user
+    ? [
+        { to: "/purchases" as const, label: "Đã mua" },
+        { to: "/account" as const, label: "Tài khoản" },
+      ]
+    : [];
+
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -43,14 +50,16 @@ export function Header() {
           </Button>
           {user ? (
             <>
+              {userLinks.map((link) => (
+                <Button key={link.to} variant="ghost" size="sm" onClick={() => navigate({ to: link.to })}>
+                  {link.label}
+                </Button>
+              ))}
               {isAdmin && (
                 <Button variant="ghost" size="sm" onClick={() => navigate({ to: "/admin" })}>
                   Admin
                 </Button>
               )}
-              <Button variant="ghost" size="icon" onClick={() => navigate({ to: "/account" })}>
-                <User className="h-5 w-5" />
-              </Button>
               <Button variant="ghost" size="icon" onClick={() => signOut()}>
                 <LogOut className="h-5 w-5" />
               </Button>
@@ -92,6 +101,9 @@ export function Header() {
             </Link>
             {user ? (
               <>
+                <Link to="/purchases" className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>
+                  Đã mua
+                </Link>
                 <Link to="/account" className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>
                   Tài khoản
                 </Link>

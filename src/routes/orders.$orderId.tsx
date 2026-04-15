@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDate, formatVND, getStatusColor, getStatusLabel } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Copy, Eye, EyeOff } from "lucide-react";
+import { Copy, Eye, EyeOff, Clock } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/orders/$orderId")({
@@ -154,6 +154,19 @@ function OrderDetailPage() {
           )}
         </div>
 
+        {/* Paid but not delivered notice */}
+        {order.status === "paid" && (
+          <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-6">
+            <Clock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-semibold text-foreground">Đã thanh toán — đang giao tài khoản</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Hệ thống đã xác nhận thanh toán. Tài khoản đang được phân bổ tự động, vui lòng quay lại sau ít phút.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Order items */}
         <div className="rounded-xl border bg-card p-6 shadow-sm">
           <h2 className="text-xl font-semibold text-foreground">Chi tiết đơn hàng</h2>
@@ -189,7 +202,6 @@ function OrderDetailPage() {
             <div className="mt-6 space-y-4">
               {deliveredItems.map((item, index) => {
                 const isVisible = Boolean(showCredentials[item.delivered_item_id]);
-
                 return (
                   <div key={item.delivered_item_id} className="rounded-xl border bg-background p-4">
                     <div className="flex flex-wrap items-center justify-between gap-3">
@@ -242,6 +254,18 @@ function OrderDetailPage() {
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* Delivered but no credentials (edge case) */}
+        {order.status === "delivered" && deliveredItems.length === 0 && (
+          <div className="rounded-xl border bg-card p-6 shadow-sm text-center">
+            <p className="text-muted-foreground">
+              Đơn hàng đã giao nhưng không tìm thấy thông tin tài khoản. Vui lòng liên hệ hỗ trợ.
+            </p>
+            <Button className="mt-4" variant="outline" asChild>
+              <Link to="/contact">Liên hệ hỗ trợ</Link>
+            </Button>
           </div>
         )}
       </div>
